@@ -32,12 +32,18 @@ jobs:
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
       - name: Debug: Check if dist exists
-        run: ls -la ./News_website  # ✅ Debugging step
+        run: ls -la ./News_website/dist  # ✅ Debugging step
+
+      - name: Move build files to root (Fix 404 issue)
+        run: |
+          mkdir -p public
+          mv ./News_website/dist/* public/
+        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./News_website/dist  # ✅ Correct path
+          path: ./public  # ✅ Now index.html will be at the root
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
