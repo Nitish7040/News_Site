@@ -33,4 +33,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./News_website/build  # ✅ Adjust to the correct build directory
+          publish_dir: ./News_website/dist  # ✅ Corrected to Vite's output directory
