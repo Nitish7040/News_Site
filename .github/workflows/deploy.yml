@@ -1,4 +1,5 @@
 name: Deploy React App to GitHub Pages
+
 on:
   push:
     branches:
@@ -12,6 +13,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,17 +25,27 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./News_website 
+        working-directory: ./News_website  # ✅ Run npm inside React folder
 
-      - name: Build React app with Vite
+      - name: Build React app
+        run: npm run build
+        working-directory: ./News_website  # ✅ Ensure build runs in correct folder
+
+      - name: Debug: Check if dist exists
+
+        run: ls -la ./News_website/dist  # ✅ Debugging step
+
+      - name: Move build files to root (Fix 404 issue)
         run: |
-         npm run build  # Navigate to the directory containing package.json
-        working-directory: ./News_website
+          mkdir -p public
+          mv ./News_website/dist/* public/
+        working-directory: ./News_website  # ✅ Ensure the script runs in the correct directory
+        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public # Correct path to Vite build output
+          path: ./News_website/public  # ✅ Corrected artifact path
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
