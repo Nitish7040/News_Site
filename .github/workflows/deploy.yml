@@ -1,4 +1,3 @@
-
 name: Deploy React App to GitHub Pages
 
 on:
@@ -33,7 +32,7 @@ jobs:
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
       - name: Debug: Check if dist exists
-        run: ls -la ./News_website/dist  # ✅ Debugging step
+        run: ls -la ./News_website/dist  # ✅ Fixed indentation and syntax
 
       - name: Move build files to root (Fix 404 issue)
         run: |
