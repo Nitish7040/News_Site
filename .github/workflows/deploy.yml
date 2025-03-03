@@ -29,10 +29,8 @@ jobs:
         run: npm run build
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
-      - name: Debug: Check if dist exists
-        run: ls -la ./News_website/dist  # ✅ Debugging step
-
       - name: Deploy to gh-pages branch
-        run: |
-          npm install -g gh-pages
-          npx gh-pages -d ./News_website/dist -b gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./News_website/build  # ✅ Adjust to the correct build directory
