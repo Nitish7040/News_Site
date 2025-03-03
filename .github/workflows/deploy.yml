@@ -31,8 +31,8 @@ jobs:
         run: npm run build
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
-      - name: Debug: Check if dist exists
-        run: ls -la ./News_website/dist  # ✅ Debugging step
+      - name: Debug: Check if build exists
+        run: ls -la ./News_website/dist 
 
       - name: Move build files to root (Fix 404 issue)
         run: |
