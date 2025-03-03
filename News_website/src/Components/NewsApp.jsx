@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card'
 const NewsApp = () => {
 
-const [search , setsearch] = useState('india');
+const [search , setsearch] = useState('Software');
 const [NewsData , setNewsData] = useState(null);
 
   
@@ -38,42 +38,60 @@ const LoadData = useEffect(()=>{
 
   return (
    <>
-   
-  <nav>
-    <div><h1>
-        Trendy News</h1>
-        </div>
-        <ul>
-            <li>abc</li>
-            <li>abjhg</li>
-        </ul>
-        <div>
-            <input type="text"
-            placeholder='search news'
+ <div className="min-h-full bg-gradient-to-r from-blue-900 to-gray-900 text-white p-4">
+      {/* Navbar */}
+      <nav className="flex flex-col md:flex-row justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-yellow-400">Trendy News</h1>
+        {/* <ul className="flex space-x-4 mt-2 md:mt-0">
+          <li className="text-gray-300 hover:text-yellow-400 cursor-pointer">abc</li>
+          <li className="text-gray-300 hover:text-yellow-400 cursor-pointer">abjhg</li>
+        </ul> */}
+         <div className="flex items-center space-x-2 mt-2 md:mt-0 bg-gray-700 p-2 rounded-lg">
+          <input
+            type="text"
+            placeholder="🔍 Search news..."
+            className="p-2 rounded-lg text-black border-none focus:ring-2 focus:ring-yellow-400 bg-gray-100 w-60 md:w-80"
             onChange={handleInput}
             value={search}
-             />
-             <button 
-             className='bvtn'
-             onClick={Getdata}>Search</button>
+          />
+          <button 
+            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg font-bold hover:bg-yellow-500 transition-all"
+            onClick={Getdata}
+          >
+            Search
+          </button>
         </div>
-  </nav>  
-<p 
-className='head '>Stay updaste with trendy news </p>
-  <div className='categorybtn'>
-    <button onClick={UserInput} value='sports' >Sports</button>
-    <button onClick={UserInput} value='politcs' >Politics</button>
-    <button onClick={UserInput} value='entertainment' >Entertainment</button>
-    <button onClick={UserInput} value='health' >Health</button>
-    <button onClick={UserInput} value='fitness' >Fitness</button>
-  </div>
+      </nav>
 
-  <div>
-    {/* cards */}
-    {NewsData ?  <Card data={NewsData}/> : null}
-   
-  </div>
-   
+      {/* Headline */}
+      <p className="text-center text-lg font-semibold mt-4 text-yellow-300">
+        Stay updated with trendy news
+      </p>
+
+      {/* Category Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 mt-4">
+        {['sports', 'politics', 'entertainment', 'health', 'fitness'].map((category) => (
+          <button 
+            key={category}
+            onClick={UserInput} 
+            value={category} 
+            className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-yellow-500 transition-all shadow-md"
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      {/* News Cards */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {NewsData ? <Card data={NewsData} /> : null}
+      </div>
+    </div>
+    <footer 
+    className='bg-gradient-to-r from-blue-900 to-gray-900 text-white p-4 text-center '
+   >
+      <p>&copy; {new Date().getFullYear()} All rights reserved. Developed by Nitish Pandey.</p>
+    </footer>
    </>
   )
 }

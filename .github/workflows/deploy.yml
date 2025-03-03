@@ -3,12 +3,14 @@ name: Deploy React App to GitHub Pages
 on:
   push:
     branches:
+<<<<<<< HEAD
       - main  # Deploy when code is pushed to main
+=======
+      - main  
+>>>>>>> c7f60c21002b4fda335e80b6d3ce512820e9b383
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write  # Required to push to gh-pages
 
 jobs:
   build-and-deploy:
@@ -30,6 +32,7 @@ jobs:
       - name: Build React app
         run: npm run build
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
+<<<<<<< HEAD
 
       - name: Debug: Check if dist exists
         run: ls -la ./News_website/dist  # ✅ Debugging step
@@ -39,11 +42,18 @@ jobs:
           mkdir -p public
           mv ./News_website/dist/* public/
         shell: bash
+=======
+>>>>>>> c7f60c21002b4fda335e80b6d3ce512820e9b383
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
+<<<<<<< HEAD
           path: ./public  # ✅ Now index.html will be at the root
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
+=======
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./News_website/dist  # ✅ Corrected to Vite's output directory
+>>>>>>> c7f60c21002b4fda335e80b6d3ce512820e9b383
