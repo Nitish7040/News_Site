@@ -1,6 +1,7 @@
 {
   "name": "pakage",
-  "homepage": "https://Nitish7040.github.io/News_Site",
+ "homepage": "https://nitish7040.github.io/News_Site",
+
   "private": true,
   "version": "0.0.0",
   "type": "module",

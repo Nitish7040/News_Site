@@ -3,7 +3,7 @@ name: Deploy React App to GitHub Pages
 on:
   push:
     branches:
-      - main  # Runs when changes are pushed to 'main'
+      - main  # Deploy when code is pushed to main
 
 permissions:
   contents: read
@@ -25,16 +25,25 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./News_website  # Ensures it runs inside your React app
+        working-directory: ./News_website  # ✅ Run npm inside React folder
 
       - name: Build React app
         run: npm run build
-        working-directory: ./News_website  # Ensures build runs in the correct directory
+        working-directory: ./News_website  # ✅ Ensure build runs in correct folder
+
+      - name: Debug: Check if dist exists
+        run: ls -la ./News_website/dist  # ✅ Debugging step
+
+      - name: Move build files to root (Fix 404 issue)
+        run: |
+          mkdir -p public
+          mv ./News_website/dist/* public/
+        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./News_website/build  # Correct path to React build output
+          path: ./public  # ✅ Now index.html will be at the root
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
