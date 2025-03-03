@@ -32,7 +32,7 @@ jobs:
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
       - name: Verify build output (Debug Step)
-        run: ls -la ./News_website/dist  # ✅ Debug to check if dist/ is created
+        run: ls ./News_website/dist  # ✅ Debug to check if dist/ is created
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
