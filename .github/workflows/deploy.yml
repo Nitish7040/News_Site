@@ -22,9 +22,8 @@ jobs:
           node-version: 18  # Use a compatible Node.js version
 
       - name: Install dependencies
-        run: |
-          cd path/to/your/project/root  # Navigate to the directory containing package.json
-          npm install
+        run: npm install
+        working-directory: ./News_website 
 
       - name: Build React app with Vite
         run: |
