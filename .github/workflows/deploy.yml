@@ -13,6 +13,9 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
@@ -23,27 +26,32 @@ jobs:
         with:
           node-version: 18  # Use a compatible Node.js version
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Install dependencies
         run: npm install
-        working-directory: ./News_website  # ✅ Run npm inside React folder
+        working-directory: ./News_website
 
       - name: Build React app
         run: npm run build
-        working-directory: ./News_website  # ✅ Ensure build runs in correct folder
+        working-directory: ./News_website
 
-      - name: Debug: Check if build exists
-        run: ls -la ./News_website/dist  # ✅ Debugging step to check build folder
+      - name: Debug - List files
+        run: ls -la ./News_website/dist
+        shell: bash
 
-      - name: Move build files to public directory
+      - name: Prepare deployment files
         run: |
-          mkdir -p ./News_website/public
-          mv ./News_website/dist/* ./News_website/public/
+          mkdir -p ./public
+          cp -r ./News_website/dist/* ./public/
         shell: bash
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./News_website/public  # ✅ Corrected artifact path
+          path: ./public
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        id: deployment
+        uses: actions/deploy-pages@v4
