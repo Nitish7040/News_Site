@@ -32,13 +32,12 @@ jobs:
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
       - name: Debug: Check if build exists
-        run: ls -la ./News_website/dist 
+        run: ls -la ./News_website/dist  # ✅ Debugging step to check build folder
 
-      - name: Move build files to root (Fix 404 issue)
+      - name: Move build files to public directory
         run: |
-          mkdir -p public
-          mv ./dist/* public/
-        working-directory: ./News_website  # ✅ Ensure the script runs in the correct directory
+          mkdir -p ./News_website/public
+          mv ./News_website/dist/* ./News_website/public/
         shell: bash
 
       - name: Upload artifact
