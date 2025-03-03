@@ -22,10 +22,14 @@ jobs:
           node-version: 18  # Use a compatible Node.js version
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd path/to/your/project/root  # Navigate to the directory containing package.json
+          npm install
 
       - name: Build React app with Vite
-        run: npm run build
+        run: |
+         npm run build  # Navigate to the directory containing package.json
+        working-directory: ./News_website
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
