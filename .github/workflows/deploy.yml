@@ -31,13 +31,13 @@ jobs:
         run: npm run build
         working-directory: ./News_website  # ✅ Ensure build runs in correct folder
 
-      - name: Verify build output (Debug Step)
-        run: ls ./News_website/dist  # ✅ Debug to check if dist/ is created
+      - name: Debug: Check if dist exists
+        run: ls -la ./News_website  # ✅ Debugging step
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./News_website/News_website/dist  # ✅ Ensure correct path
+          path: ./News_website/dist  # ✅ Correct path
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
