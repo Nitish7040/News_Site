@@ -15,31 +15,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18  # Use a compatible Node.js version
+
       - name: Install dependencies
         run: npm install
-        working-directory: ./News_website
 
-      - name: Build React app
+      - name: Build React app with Vite
         run: npm run build
-        working-directory: ./News_website  # ✅ Ensure build runs in correct folder
-
-      - name: Debug: Check if dist exists
-        run: ls -la ./News_website/dist  # ✅ Debugging step
-
-      - name: Move build files to root (Fix 404 issue)
-        run: |
-          mkdir -p public
-          mv ./News_website/dist/* public/
-        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public   # Correct path to React build output
+          path: ./dist  # Correct path to Vite build output
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
